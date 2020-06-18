@@ -4,12 +4,12 @@ Its now hosted on IPFS for maximum decentralizational liquidations.
 
 Mostly just wanted to tinker with this and see how the whole thing worked. I also patched and added the other assets that were missing SAI, wBTC DAI and USDT
 
-Something to note: Gas is super expensive for this txn, around 3.99 USD at time of writing 650k ish in gas. 
+Something to note: Gas is super expensive for this txn, around 3.99 USD (Gas price of 40Gwei thanks Paxos and USDT) at time of writing 650k ish in gas. 
 So any liquidation that you want to execute. Will cost you that. Factor that in if you think its worth doing. 
-At the allotted 8% discount at time of writing that's 
+At the allotted 8% discount at time of writing that's about 50 USD minimum 
 # How to Use
 
-- Go to: https://chiragkhatri.me/compound-liquidator/
+- Go to: https://ipfs.io/ipfs/QmQuWBV3xninsDZXr5DfNzRivDLM98PieHHWnVzrSBzc8f/
 - You will see a list of accounts. The ones that have a state "unhealthy" are usually liquidable.
 - Click inspect and you should see a more detailed screen.
 - Note liquidating is **disabled** if account liquidity > 1 it will say so at the top of the screen
