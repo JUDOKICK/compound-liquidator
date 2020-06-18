@@ -42,6 +42,7 @@ function Web3Setter(props) {
       app.state.ORACLE_ABI = Compound.oracleAbi;
 
       app.state.COMPTROLLER_ABI = Compound.comptrollerAbi;
+
       app.state.COMPTROLLER_ADDRESS = Compound.comptrollerAddress;
 
       app.state.TOKENS = Compound.tokens;
@@ -75,8 +76,9 @@ function Web3Setter(props) {
 /*
  * Parse response data from server into an array of account objects. Can point to local json or server response
  */
-function ParseAccountDataResponse(json, app) {
+async function ParseAccountDataResponse(json, app) {
   var newAccounts = [];
+
 
   json.accounts.forEach(accountData => {
     var account = {
@@ -92,7 +94,7 @@ function ParseAccountDataResponse(json, app) {
 
       health: accountData.health.value,
 
-      close_factor: accountData.close_factor,
+      close_factor: 0,
 
       liquidation_incentive: accountData.liquidation_incentive,
 
@@ -102,9 +104,9 @@ function ParseAccountDataResponse(json, app) {
     // if (filter(accountData.tokens)) {
     //   newAccounts.push(account);
     // }
-
     newAccounts.push(account);
   });
+
 
   var inspectedAddressParam = "";
   try {
@@ -126,8 +128,17 @@ function ParseAccountDataResponse(json, app) {
     console.log(e);
   }
 
-  var discount = json.liquidation_incentive;
-  var close_factor = json.close_factor;
+  var comptroller = new web3.web3js.eth.Contract(app.state.COMPTROLLER_ABI, app.state.COMPTROLLER_ADDRESS);
+  var close_factor = await comptroller.methods.closeFactorMantissa().call();
+  close_factor = web3.web3js.utils.fromWei(close_factor,'ether');
+  console.log("Close factor: ", close_factor);
+
+  var discount = await  comptroller.methods.liquidationIncentiveMantissa().call();
+  discount = web3.web3js.utils.fromWei(discount,'ether');
+  console.log("Liq Incent: ", discount);
+
+  // var discount = json.liquidation_incentive;
+  // var close_factor = json.close_factor;
 
   app.setState({
     accounts: newAccounts,

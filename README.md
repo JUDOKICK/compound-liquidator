@@ -1,5 +1,12 @@
 # compound-liquidator
+Big thanks to chiragkhatri for fixing the API originally. I simply patched the JSON output for a 2020 Update. 
+Its now hosted on IPFS for maximum decentralizational liquidations. 
 
+Mostly just wanted to tinker with this and see how the whole thing worked. I also patched and added the other assets that were missing SAI, wBTC DAI and USDT
+
+Something to note: Gas is super expensive for this txn, around 3.99 USD at time of writing 650k ish in gas. 
+So any liquidation that you want to execute. Will cost you that. Factor that in if you think its worth doing. 
+At the allotted 8% discount at time of writing that's 
 # How to Use
 
 - Go to: https://chiragkhatri.me/compound-liquidator/

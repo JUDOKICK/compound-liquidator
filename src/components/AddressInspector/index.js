@@ -17,7 +17,7 @@ var tokenAddressToBeRepaid = "";
 
 function GetIntendedRepayAmount() {
   var repaySlider = document.getElementById('repaySlider');
-  return new BigNumber(repaySlider.value / repaySlider.max * maxRepayAmount).toFixed(4);
+  return BigNumber(repaySlider.value / repaySlider.max * maxRepayAmount).toFixed(4);
 }
 
 function OnRepaySliderValueChange() {
@@ -174,6 +174,7 @@ function InitiateLiquidate() {
     var tokenContract = new web3.web3js.eth.Contract(assetBorrowAbi, assetBorrowAddress);
     // cETH address uses different liquidate function
     if (assetBorrowAddress === "0x4ddc2d193948926d02f9b1fe9e1daa0718270ed5") {
+        debugger
       tokenContract.methods.liquidateBorrow(targetAccount, assetCollateralAddress).send(
       {
         from: myAccount,
@@ -194,6 +195,7 @@ function InitiateLiquidate() {
         }
     })
     } else {
+        debugger
       tokenContract.methods.liquidateBorrow(targetAccount, requestAmountClose, assetCollateralAddress).send(
         {
           from: myAccount
@@ -304,6 +306,7 @@ function AddressInspector (props) {
         // calculate the maximum amount that the user can liquidate
         // we can actually liquidate more than just their account liquidity since after seizing assets from their supply, the account's ratio will go under 1.5x and so forth.
         // this determines the maximum amount that we can seize in 1 liquidation
+          debugger
         maxRepayAmount = app.state.borrow_balances[tokenAddressToBeRepaid] * (app.state.close_factor-.005);
       } else {
         liquidationText = "Unable to repay " + app.state.asset_repay + " and collect same asset " + app.state.asset_collect + ".";
